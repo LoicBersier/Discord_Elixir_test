@@ -23,6 +23,8 @@ defmodule HahaYes.MixProject do
   defp deps do
     [
       {:nostrum, github: "Kraigie/nostrum"},
+      {:ecto_sql, "~> 3.2"},
+      {:ecto_sqlite3, "~> 0.16"},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
