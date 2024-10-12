@@ -15,7 +15,7 @@ defmodule HahaYes.Commands.Ping do
     Bot: Pong!
   """
 
-  def execute(msg, _ws_state) do
+  def execute(msg, _ws_state, _args) do
     Api.create_message(msg.channel_id, "Pong!")
   end
 end

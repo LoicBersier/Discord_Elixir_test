@@ -13,7 +13,7 @@ defmodule HahaYes.Events.MessagesConsumer do
       |> Enum.at(0)
       |> String.downcase()
       |> String.capitalize()
-      |> then(& apply(String.to_atom("#{HahaYes.Commands}.#{&1}"), :execute, [msg, ws_state]))
+      |> then(& apply(String.to_atom("#{HahaYes.Commands}.#{&1}"), :execute, [msg, ws_state, String.replace(msg.content, "h3h3 download ", "")]))
     end
   end
 end
