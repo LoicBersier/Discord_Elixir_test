@@ -6,7 +6,7 @@ defmodule HahaYes.Commands.Download do
   alias Nostrum.Api
 
   @doc """
-  Download the video sent by the user at 480p max.
+  Download the video sent by the user with yt-dlp.
 
   ## Parameters
 
@@ -14,7 +14,7 @@ defmodule HahaYes.Commands.Download do
 
   ## Examples
 
-    User: h3h3 download https://x.com/i/status/1844807680373768595
+    User: h3h3 download https://x.com/i/status/1845119662402511072
 
     Bot: <video file>
 
