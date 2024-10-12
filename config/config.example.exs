@@ -8,4 +8,5 @@ config :nostrum,
     :guild_messages,
     :message_content,
     :guild_message_reactions
-  ]
+  ],
+  prefix: "haha "
