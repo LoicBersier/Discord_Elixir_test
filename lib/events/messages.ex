@@ -5,7 +5,7 @@ defmodule HahaYes.Events.MessagesConsumer do
 
   use Nostrum.Consumer
 
-  def handle_event({:MESSAGE_CREATE, msg, _ws_state}) when msg.author.bot != true do
+  def handle_event({:MESSAGE_CREATE, msg, ws_state}) when msg.author.bot != true do
     if String.starts_with?(msg.content, "h3h3 ") do
       msg.content
       |> String.replace("h3h3 ", "")
@@ -13,7 +13,7 @@ defmodule HahaYes.Events.MessagesConsumer do
       |> Enum.at(0)
       |> String.downcase()
       |> String.capitalize()
-      |> then(& apply(String.to_atom("#{HahaYes.Commands}.#{&1}"), :execute, [msg]))
+      |> then(& apply(String.to_atom("#{HahaYes.Commands}.#{&1}"), :execute, [msg, ws_state]))
     end
   end
 end

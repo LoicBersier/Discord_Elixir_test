@@ -22,7 +22,7 @@ defmodule HahaYes.Commands.Download do
 
     Bot: <video file>
   """
-  def execute(msg) do
+  def execute(msg, _ws_state) do
     {:ok, loading} = Api.create_message(msg.channel_id, "Downloading...")
 
     arg = String.replace(msg.content, "h3h3 download ", "")
