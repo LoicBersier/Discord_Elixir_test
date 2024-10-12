@@ -1,0 +1,21 @@
+defmodule HahaYes.Commands.Ping do
+  @moduledoc """
+  Contain all the function for each commands
+  """
+
+  alias Nostrum.Api
+
+  @doc """
+  Reply with a simple "Pong!"
+
+  ## Example
+
+    User: h3h3 ping
+
+    Bot: Pong!
+  """
+
+  def execute(msg) do
+    Api.create_message(msg.channel_id, "Pong!")
+  end
+end

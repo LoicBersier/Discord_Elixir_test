@@ -1,23 +1,9 @@
-defmodule HahaCommands do
+defmodule HahaYes.Commands.Download do
   @moduledoc """
   Contain all the function for each commands
   """
 
   alias Nostrum.Api
-
-  @doc """
-  Reply with a simple "Pong!"
-
-  ## Example
-
-    User: h3h3 ping
-
-    Bot: Pong!
-  """
-
-  def ping(msg) do
-    Api.create_message(msg.channel_id, "Pong!")
-  end
 
   @doc """
   Download the video sent by the user at 480p max.
@@ -36,7 +22,7 @@ defmodule HahaCommands do
 
     Bot: <video file>
   """
-  def download(msg) do
+  def execute(msg) do
     arg = String.replace(msg.content, "h3h3 download ", "")
     opt = ["-f", "bestvideo[height<=?480]+bestaudio/best", arg, "-o", "#{System.tmp_dir}/test.mp4", "--force-overwrites", "--playlist-reverse", "--no-playlist", "--remux-video=mp4/webm/mov", "--no-warnings"];
 
