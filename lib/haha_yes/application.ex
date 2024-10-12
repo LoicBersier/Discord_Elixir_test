@@ -8,7 +8,10 @@ defmodule HahaYes.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      HahaConsumer
+      HahaYes.Events.MessagesConsumer,
+      HahaYes.Events.ReadyConsumer,
+      HahaYes.Events.AddReactionsConsumer,
+      HahaYes.Events.RemoveReactionsConsumer
       # Starts a worker by calling: HahaYes.Worker.start_link(arg)
       # {HahaYes.Worker, arg}
     ]
