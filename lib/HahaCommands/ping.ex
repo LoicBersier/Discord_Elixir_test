@@ -1,6 +1,6 @@
 defmodule HahaYes.Commands.Ping do
   @moduledoc """
-  Contain all the function for each commands
+  Ping command
   """
 
   alias Nostrum.Api

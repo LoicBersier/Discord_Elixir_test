@@ -1,6 +1,6 @@
 defmodule HahaYes.Commands.Download do
   @moduledoc """
-  Contain all the function for each commands
+  Download command
   """
 
   alias Nostrum.Api
