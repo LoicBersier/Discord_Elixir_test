@@ -23,11 +23,15 @@ defmodule HahaYes.Commands.Download do
     Bot: <video file>
   """
   def execute(msg) do
+    {:ok, loading} = Api.create_message(msg.channel_id, "Downloading...")
+
     arg = String.replace(msg.content, "h3h3 download ", "")
-    opt = ["-f", "bestvideo[height<=?480]+bestaudio/best", arg, "-o", "#{System.tmp_dir}/test.mp4", "--force-overwrites", "--playlist-reverse", "--no-playlist", "--remux-video=mp4/webm/mov", "--no-warnings"];
+    opt = ["-f", "bestvideo[height<=?480]+bestaudio/best", arg, "-o", "#{System.tmp_dir}/#{msg.id}", "--force-overwrites", "--playlist-reverse", "--no-playlist", "--remux-video=mp4", "--no-warnings"];
 
     System.cmd("yt-dlp", opt)
-    Api.delete_message(msg.channel_id, msg.id)
-    Api.create_message(msg.channel_id, files: ["#{System.tmp_dir}/test.mp4"])
+
+    Api.delete_message(loading.channel_id, loading.id)
+    Api.delete_message(msg)
+    Api.create_message(msg.channel_id, files: ["#{System.tmp_dir}/#{msg.id}.mp4"])
   end
 end
