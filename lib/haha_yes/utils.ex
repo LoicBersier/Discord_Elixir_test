@@ -10,14 +10,12 @@ defmodule HahaYes.Utility do
 
     ```
     iex> HahaYes.Utility.download("https://x.com/i/status/1844841048603783249", "#{System.tmp_dir}/test")
-
-    {:ok, /tmp}/test.mp4
+    {:ok, "#{System.tmp_dir}/test.mp4"}
     ```
 
     ```
-    iex> HahaYes.Utility.download("invalid", "#{System.tmp_dir}/test")
-
-    {:error, "[generic] Extracting URL: invalid\\nERROR: [generic] 'invalid' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:invalid" ) to search YouTube"}
+    iex> HahaYes.Utility.download("http://example.com", "#{System.tmp_dir}/test")
+    {:error,"[generic] Extracting URL: http://example.com\\n[generic] example: Downloading webpage\\n[generic] example: Extracting information\\nERROR: Unsupported URL: http://example.com\\n"}
     ```
   """
 
