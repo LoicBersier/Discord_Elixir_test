@@ -21,6 +21,15 @@ defmodule HahaYes.Commands.Download do
     User: h3h3 download https://www.youtube.com/watch?v=ryS7TS_J7KA
 
     Bot: <video file>
+
+    User: h3h3 download https://cdn.discordapp.com/attachments/790701936394633216/1295042668929355816/1295042650113704087.mp4?ex=670d35f9&is=670be479&hm=bf61358b9b6f8c94a14be4e7e3650799ef733331e84d87254b71a098646c4bc2&
+
+    Bot: <video file>
+
+    User: h3h3 download invalid
+
+    Bot: `[generic] Extracting URL: invalid
+    ERROR: [generic] 'invalid' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:invalid" ) to search YouTube`
   """
   def execute(msg, _ws_state, args) do
     url = Enum.at(args, 0)
