@@ -21,7 +21,7 @@ defmodule HahaYes.Events.MessagesConsumer do
       |> Enum.at(0)
       |> String.downcase()
       |> String.capitalize()
-      |> then(& Module.concat(HahaYes.Commands, &1).execute(msg, ws_state, String.split(String.replace(String.downcase(msg.content), "#{prefix}#{String.downcase(&1)} ", ""))))
+      |> then(& Module.safe_concat(HahaYes.Commands, &1).execute(msg, ws_state, String.split(String.replace(String.downcase(msg.content), "#{prefix}#{String.downcase(&1)} ", ""))))
     end
   end
 end
