@@ -26,31 +26,29 @@ defmodule HahaYes.Commands.Download do
     url = Enum.at(args, 0)
     {:ok, loading} = Api.create_message(msg.channel_id, "Downloading...")
 
+    with {:ok, output} <- HahaYes.Utility.download(url, "#{System.tmp_dir}/#{msg.id}") do
+      {:ok, file} = File.stat(output)
+      file_size =
+        file.size / 1000000.0
+        |> Decimal.from_float()
+        |> Decimal.round(2)
+        |> Decimal.to_float()
 
-    opt = ["-f", "bestvideo[height<=?480]+bestaudio/best", url, "-o", "#{System.tmp_dir}/#{msg.id}.%(ext)si", "--force-overwrites", "--playlist-reverse", "--no-playlist", "--remux-video=mp4/webm/mov", "--no-warnings"];
+      Api.delete_message(loading.channel_id, loading.id)
+      Api.delete_message(msg)
 
-    System.cmd("yt-dlp", opt)
-
-    output = Enum.at(Path.wildcard("#{System.tmp_dir}/#{msg.id}.*"), 0)
-    {:ok, file} = File.stat(output)
-    file_size =
-      file.size / 1000000.0
-      |> Decimal.from_float()
-      |> Decimal.round(2)
-      |> Decimal.to_float()
-
-    Api.delete_message(loading.channel_id, loading.id)
-    Api.delete_message(msg)
-
-    if file_size >= 25 do
-      Api.create_message(msg.channel_id, "File size is too big! (#{file_size})")
+      if file_size >= 25 do
+        Api.create_message(msg.channel_id, "File size is too big! (#{file_size})")
+      else
+        embed =
+          %Nostrum.Struct.Embed{}
+          |> put_color(431_948)
+          |> put_author("Downloaded by #{msg.author.username} (#{file_size} MB)", url, "https://cdn.discordapp.com/avatars/#{msg.author.id}/#{msg.author.avatar}.webp")
+          |> put_footer("You can get the original video by clicking on the \"Downloaded by #{msg.author.username}\" message!")
+        Api.create_message(msg.channel_id, files: [output], embeds: [embed])
+      end
     else
-      embed =
-        %Nostrum.Struct.Embed{}
-        |> put_color(431_948)
-        |> put_author("Downloaded by #{msg.author.username} (#{file_size} MB)", url, "https://cdn.discordapp.com/avatars/#{msg.author.id}/#{msg.author.avatar}.webp")
-        |> put_footer("You can get the original video by clicking on the \"Downloaded by #{msg.author.username}\" message!")
-      Api.create_message(msg.channel_id, files: [output], embeds: [embed])
+      {:error, error} -> Api.create_message(msg.channel_id, "`#{error}`")
     end
   end
 end
